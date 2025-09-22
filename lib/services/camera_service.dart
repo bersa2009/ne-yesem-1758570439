@@ -188,7 +188,7 @@ class BarcodeService {
         barcode: '8690637008016',
         name: 'Makarna',
         brand: 'Barilla',
-        ingredients: ['bugday_unu', 'su'],
+        ingredients: ['un', 'su'],
         category: 'Tahıl',
       ),
     };

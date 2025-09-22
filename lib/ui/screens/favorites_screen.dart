@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ui/theme/app_theme.dart';
 import '../../providers/app_providers.dart';
+import '../../providers/navigation_provider.dart';
 import '../widgets/recipe_card.dart';
 import 'recipe_detail_screen.dart';
 
@@ -100,7 +101,7 @@ class FavoritesScreen extends ConsumerWidget {
             ElevatedButton.icon(
               onPressed: () {
                 // Navigate to ingredients tab
-                DefaultTabController.of(context)?.animateTo(0);
+                ref.read(navigationProvider.notifier).goToIngredients();
               },
               icon: const Icon(Icons.search),
               label: const Text('Tarif Keşfet'),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ui/theme/app_theme.dart';
 import '../../providers/app_providers.dart';
+import '../../providers/navigation_provider.dart';
 import 'ingredients_screen.dart';
 import 'recipe_results_screen.dart';
 import 'favorites_screen.dart';
@@ -16,7 +17,6 @@ class MainNavigationScreen extends ConsumerStatefulWidget {
 }
 
 class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
-  int _currentIndex = 0;
 
   final List<Widget> _screens = const [
     IngredientsScreen(),
@@ -30,18 +30,17 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     final l10n = AppLocalizations.of(context);
     final selectedIngredients = ref.watch(selectedIngredientsProvider);
     final recipeResults = ref.watch(recipeResultsProvider);
+    final currentIndex = ref.watch(navigationProvider);
     
     return Scaffold(
       body: IndexedStack(
-        index: _currentIndex,
+        index: currentIndex,
         children: _screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          ref.read(navigationProvider.notifier).setIndex(index);
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -130,7 +129,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           ),
         ],
       ),
-      floatingActionButton: _currentIndex == 0
+      floatingActionButton: currentIndex == 0
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [

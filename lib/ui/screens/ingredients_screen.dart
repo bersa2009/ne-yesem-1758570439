@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../models/models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ui/theme/app_theme.dart';
 import '../../providers/app_providers.dart';
+import '../../providers/navigation_provider.dart';
 
 class IngredientsScreen extends ConsumerStatefulWidget {
   const IngredientsScreen({super.key});
@@ -192,7 +194,7 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen>
               onPressed: () {
                 ref.read(recipeResultsProvider.notifier).searchRecipes();
                 // Navigate to results tab
-                DefaultTabController.of(context)?.animateTo(1);
+                ref.read(navigationProvider.notifier).goToResults();
               },
               icon: const Icon(Icons.search),
               label: Text(l10n.findRecipes),
