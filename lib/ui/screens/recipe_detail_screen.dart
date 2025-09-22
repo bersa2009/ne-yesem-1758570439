@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
+import '../../services/auth_service.dart';
+import '../../services/firestore_repository.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   final MatchResult result;
@@ -53,7 +55,18 @@ class RecipeDetailScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final user = AuthService().currentUser;
+                    if (user == null) return;
+                    final missing = result.missingIngredientIds;
+                    await FirestoreRepository().addToShoppingList(
+                      userId: user.uid,
+                      recipeId: result.recipe.id,
+                      ingredientIds: missing,
+                    );
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Eksikler alışveriş listesine eklendi')));
+                  },
                   icon: const Icon(Icons.playlist_add),
                   label: const Text('Eksikleri listeye ekle'),
                 ),
@@ -61,7 +74,17 @@ class RecipeDetailScreen extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final user = AuthService().currentUser;
+                    if (user == null) return;
+                    await FirestoreRepository().setFavorite(
+                      userId: user.uid,
+                      recipeId: result.recipe.id,
+                      isFavorite: true,
+                    );
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Favorilere eklendi')));
+                  },
                   icon: const Icon(Icons.favorite_border),
                   label: const Text('Favorilere ekle'),
                 ),

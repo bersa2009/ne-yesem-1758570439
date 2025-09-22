@@ -39,6 +39,19 @@ class MatchingService {
     final results = <MatchResult>[];
 
     for (final recipe in recipes) {
+      // Early filter outs
+      if (filters.maxTimeMinutes != null && recipe.timeMin > filters.maxTimeMinutes!) {
+        continue;
+      }
+      if (filters.minServings != null && recipe.servings < filters.minServings!) {
+        continue;
+      }
+      if (filters.diet != null && !recipe.dietTags.contains(filters.diet)) {
+        continue;
+      }
+      if (recipe.equipment.any((e) => filters.excludedEquipment.contains(e))) {
+        continue;
+      }
       final recipeIngredientIds = recipe.ingredients.map((ri) => ri.ingredientId).toSet();
 
       int score = 0;
@@ -67,26 +80,20 @@ class MatchingService {
         }
       }
 
-      // Filters bonuses
-      if (filters.maxTimeMinutes != null && recipe.timeMin <= filters.maxTimeMinutes!) {
-        score += 5;
-      }
-      if (filters.diet != null && recipe.dietTags.contains(filters.diet)) {
-        score += 5;
-      }
-      if (recipe.equipment.every((e) => !filters.excludedEquipment.contains(e))) {
-        score += 2;
-      }
-
       // Popularity boost (lightly)
       score += (recipe.popularityScore / 50).round();
 
-      // Threshold: show only if score > 50% of theoretical max
-      final theoreticalMax = recipe.ingredients.length * 3 + 5 + 5 + 2 + (recipe.popularityScore / 50).round();
+      // Max score without filter bonuses; cleaner for ScoreBar
+      final theoreticalMax = recipe.ingredients.length * 3 + (recipe.popularityScore / 50).round();
       final meetsThreshold = score >= (theoreticalMax * 0.5).round();
       if (!meetsThreshold) continue;
 
-      results.add(MatchResult(recipe: recipe, score: score, missingIngredientIds: missing));
+      results.add(MatchResult(
+        recipe: recipe,
+        score: score,
+        missingIngredientIds: missing,
+        maxScore: theoreticalMax,
+      ));
     }
 
     results.sort((a, b) => b.score.compareTo(a.score));
