@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/screens/welcome_screen.dart';
+import 'ui/screens/home_screen.dart';
 
 class NeYesemApp extends StatelessWidget {
   const NeYesemApp({super.key});
@@ -12,7 +12,7 @@ class NeYesemApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2F80ED)),
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
