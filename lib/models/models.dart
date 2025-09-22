@@ -123,11 +123,13 @@ class MatchFilters {
 class MatchResult {
   final Recipe recipe;
   final int score;
+  final int maxScore;
   final List<String> missingIngredientIds;
 
   const MatchResult({
     required this.recipe,
     required this.score,
+    required this.maxScore,
     required this.missingIngredientIds,
   });
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
+import '../../services/local_store.dart';
+import '../widgets/score_bar.dart';
+import 'shopping_list_screen.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   final MatchResult result;
@@ -15,13 +18,25 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final recipe = result.recipe;
     return Scaffold(
-      appBar: AppBar(title: Text(recipe.name)),
+      appBar: AppBar(
+        title: Text(recipe.name),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ShoppingListScreen()));
+            },
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           if (recipe.imageUrl.isNotEmpty) Image.network(recipe.imageUrl, height: 200, fit: BoxFit.cover),
           const SizedBox(height: 12),
           Text(recipe.description),
+          const SizedBox(height: 12),
+          ScoreBar(score: result.score, maxScore: result.maxScore),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
@@ -53,7 +68,15 @@ class RecipeDetailScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await LocalStore.instance.addMissingIngredientsToShoppingList(
+                      missingIngredientIds: result.missingIngredientIds,
+                      ingredientById: ingredientById,
+                    );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Eksikler alışveriş listesine eklendi')));
+                    }
+                  },
                   icon: const Icon(Icons.playlist_add),
                   label: const Text('Eksikleri listeye ekle'),
                 ),
@@ -61,7 +84,19 @@ class RecipeDetailScreen extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final isFav = await LocalStore.instance.isFavorite(recipe.id);
+                    if (isFav) {
+                      await LocalStore.instance.removeFavorite(recipe.id);
+                    } else {
+                      await LocalStore.instance.addFavorite(recipe.id);
+                    }
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(isFav ? 'Favorilerden çıkarıldı' : 'Favorilere eklendi')),
+                      );
+                    }
+                  },
                   icon: const Icon(Icons.favorite_border),
                   label: const Text('Favorilere ekle'),
                 ),
