@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
+import 'ui/splash/splash_screen.dart';
 import 'services/database_service.dart';
 import 'services/security_service.dart';
 import 'services/performance_service.dart';
@@ -11,6 +13,22 @@ import 'services/assistant_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Set system UI overlay style
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+  
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   
   // Initialize core services
   await _initializeServices();

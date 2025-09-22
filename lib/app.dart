@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'ui/screens/welcome_screen.dart';
+import 'ui/splash/splash_screen.dart';
 import 'providers/app_providers.dart';
 import 'ui/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
@@ -35,7 +36,7 @@ class NeYesemApp extends ConsumerWidget {
       ],
       
       // Navigation configuration
-      home: const WelcomeScreen(),
+      home: const SplashScreen(),
       
       // Error handling
       builder: (context, child) {

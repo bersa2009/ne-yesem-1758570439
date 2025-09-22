@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="add_ingredients"
+        android:enabled="true"
+        android:icon="@drawable/ic_mic"
+        android:shortcutShortLabel="@string/shortcut_add_ingredients_short"
+        android:shortcutLongLabel="@string/shortcut_add_ingredients_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.ne_yesem"
+            android:targetClass="com.example.ne_yesem.MainActivity">
+            <extra android:name="shortcut_id" android:value="add_ingredients" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="find_recipes"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:shortcutShortLabel="@string/shortcut_find_recipes_short"
+        android:shortcutLongLabel="@string/shortcut_find_recipes_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.ne_yesem"
+            android:targetClass="com.example.ne_yesem.MainActivity">
+            <extra android:name="shortcut_id" android:value="find_recipes" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="camera_scan"
+        android:enabled="true"
+        android:icon="@drawable/ic_camera"
+        android:shortcutShortLabel="@string/shortcut_camera_short"
+        android:shortcutLongLabel="@string/shortcut_camera_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.ne_yesem"
+            android:targetClass="com.example.ne_yesem.MainActivity">
+            <extra android:name="shortcut_id" android:value="camera_scan" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="voice_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_voice"
+        android:shortcutShortLabel="@string/shortcut_voice_short"
+        android:shortcutLongLabel="@string/shortcut_voice_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.ne_yesem"
+            android:targetClass="com.example.ne_yesem.MainActivity">
+            <extra android:name="shortcut_id" android:value="voice_search" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>
