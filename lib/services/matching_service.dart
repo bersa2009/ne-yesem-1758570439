@@ -67,15 +67,26 @@ class MatchingService {
         }
       }
 
-      // Filters bonuses
+      // Filters bonuses and penalties
       if (filters.maxTimeMinutes != null && recipe.timeMin <= filters.maxTimeMinutes!) {
         score += 5;
+      }
+      if (filters.minServings != null && recipe.servings < filters.minServings!) {
+        continue; // Skip recipes that don't meet minimum servings
+      }
+      if (filters.maxServings != null && recipe.servings > filters.maxServings!) {
+        continue; // Skip recipes that exceed maximum servings
       }
       if (filters.diet != null && recipe.dietTags.contains(filters.diet)) {
         score += 5;
       }
+      if (filters.difficulty != null && recipe.difficulty != filters.difficulty) {
+        continue; // Skip recipes that don't match difficulty
+      }
       if (recipe.equipment.every((e) => !filters.excludedEquipment.contains(e))) {
         score += 2;
+      } else {
+        continue; // Skip recipes that require excluded equipment
       }
 
       // Popularity boost (lightly)

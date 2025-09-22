@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
 import '../../services/matching_service.dart';
+import '../widgets/filter_dialog.dart';
 import 'results_screen.dart';
 
 class IngredientsScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
+  MatchFilters _currentFilters = const MatchFilters();
 
   @override
   void initState() {
@@ -31,7 +33,27 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Malzemeler')),
+      appBar: AppBar(
+        title: const Text('Malzemeler'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => FilterDialog(
+                  initialFilters: _currentFilters,
+                  onFiltersChanged: (filters) {
+                    setState(() {
+                      _currentFilters = filters;
+                    });
+                  },
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: FutureBuilder<List<Ingredient>>(
         future: _ingredientsFuture,
         builder: (context, snapshot) {
@@ -84,7 +106,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                   child: ElevatedButton.icon(
                     onPressed: _selectedIngredientIds.isEmpty ? null : () async {
                       final service = await MatchingService.loadFromAssets();
-                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: _currentFilters);
                       if (!mounted) return;
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
                     },

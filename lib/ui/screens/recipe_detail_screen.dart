@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
+import '../../services/firestore_service.dart';
+import '../../services/shopping_list_service.dart';
 
-class RecipeDetailScreen extends StatelessWidget {
+class RecipeDetailScreen extends StatefulWidget {
   final MatchResult result;
   final Map<String, Ingredient> ingredientById;
 
@@ -12,8 +14,73 @@ class RecipeDetailScreen extends StatelessWidget {
   });
 
   @override
+  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+}
+
+class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  final FirestoreService _firestoreService = FirestoreService();
+  final ShoppingListService _shoppingListService = ShoppingListService();
+  bool _isFavorite = false;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFavoriteStatus();
+  }
+
+  Future<void> _checkFavoriteStatus() async {
+    try {
+      _isFavorite = await _firestoreService.isFavorite(widget.result.recipe.id);
+    } catch (e) {
+      print('Error checking favorite status: $e');
+    } finally {
+      setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _toggleFavorite() async {
+    try {
+      if (_isFavorite) {
+        await _firestoreService.removeFavorite(widget.result.recipe.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Favorilerden çıkarıldı')),
+        );
+      } else {
+        await _firestoreService.addFavorite(widget.result.recipe.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Favorilere eklendi')),
+        );
+      }
+      setState(() => _isFavorite = !_isFavorite);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Hata: $e')),
+      );
+    }
+  }
+
+  Future<void> _addMissingToShoppingList() async {
+    try {
+      final missingIngredients = widget.result.missingIngredientIds
+          .map((id) => widget.result.recipe.ingredients.firstWhere((ri) => ri.ingredientId == id))
+          .toList();
+      
+      await _shoppingListService.addMissingIngredientsToShoppingList(missingIngredients);
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${missingIngredients.length} malzeme alışveriş listesine eklendi')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Hata: $e')),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final recipe = result.recipe;
+    final recipe = widget.result.recipe;
     return Scaffold(
       appBar: AppBar(title: Text(recipe.name)),
       body: ListView(
@@ -35,8 +102,8 @@ class RecipeDetailScreen extends StatelessWidget {
           Text('Malzemeler', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
           ...recipe.ingredients.map((ri) {
-            final ing = ingredientById[ri.ingredientId];
-            final isMissing = result.missingIngredientIds.contains(ri.ingredientId);
+            final ing = widget.ingredientById[ri.ingredientId];
+            final isMissing = widget.result.missingIngredientIds.contains(ri.ingredientId);
             return ListTile(
               dense: true,
               leading: Icon(isMissing ? Icons.remove_circle : Icons.check_circle, color: isMissing ? Colors.red : Colors.green),
@@ -51,19 +118,21 @@ class RecipeDetailScreen extends StatelessWidget {
           const SizedBox(height: 24),
           Row(
             children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.playlist_add),
-                  label: const Text('Eksikleri listeye ekle'),
+              if (widget.result.missingIngredientIds.isNotEmpty)
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _addMissingToShoppingList,
+                    icon: const Icon(Icons.playlist_add),
+                    label: const Text('Eksikleri listeye ekle'),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
+              if (widget.result.missingIngredientIds.isNotEmpty)
+                const SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border),
-                  label: const Text('Favorilere ekle'),
+                  onPressed: _loading ? null : _toggleFavorite,
+                  icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
+                  label: Text(_isFavorite ? 'Favorilerden çıkar' : 'Favorilere ekle'),
                 ),
               ),
             ],
