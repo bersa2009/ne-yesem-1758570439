@@ -35,11 +35,11 @@ class ResetScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Veri silme işlemi
+                            // Gerçek veri silme işlemi burada yapılacak
+                            // Şimdilik sadece bildirim göster
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Tüm veriler silindi'))
+                              const SnackBar(content: Text('Bu özellik henüz implementasyonsuz'))
                             );
-                            Navigator.of(context).pop();
                             Navigator.of(context).pop();
                           },
                           child: const Text('Sil', style: TextStyle(color: Colors.red)),
@@ -69,9 +69,9 @@ class ResetScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Ayarları sıfırlama işlemi
+                            // Gerçek ayar sıfırlama işlemi burada yapılacak
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Ayarlar sıfırlandı'))
+                              const SnackBar(content: Text('Bu özellik henüz implementasyonsuz'))
                             );
                             Navigator.of(context).pop();
                           },
@@ -90,9 +90,9 @@ class ResetScreen extends StatelessWidget {
                 title: const Text('Profil'),
                 subtitle: const Text('Kullanıcı bilgileri ve tercihleri'),
                 onTap: () {
-                  // Profil ekranı açılacak
+                  // Profil ekranı henüz implementasyonsuz
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profil özelliği yakında eklenecek!'))
+                    const SnackBar(content: Text('Profil özelliği henüz implementasyonsuz'))
                   );
                 },
               ),

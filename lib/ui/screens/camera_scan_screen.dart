@@ -25,7 +25,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
   Future<void> _initializeCamera() async {
     try {
       _cameras = await availableCameras();
-      if (_cameras!.isNotEmpty) {
+      if (_cameras != null && _cameras!.isNotEmpty) {
         _controller = CameraController(
           _cameras![0],
           ResolutionPreset.medium,
@@ -36,9 +36,20 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
             _isInitialized = true;
           });
         }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Kamera bulunamadı'))
+          );
+        }
       }
     } catch (e) {
       print('Kamera hatası: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Kamera başlatılırken hata oluştu'))
+        );
+      }
     }
   }
 
@@ -46,6 +57,15 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
   void dispose() {
     _controller?.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive) {
+      _controller?.dispose();
+    } else if (state == AppLifecycleState.resumed && _controller != null) {
+      _initializeCamera();
+    }
   }
 
   Future<void> _takePicture() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
-import 'recipe_detail_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -99,17 +98,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       icon: const Icon(Icons.favorite, color: Colors.red),
                     ),
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => RecipeDetailScreen(
-                            result: MatchResult(
-                              recipe: recipe,
-                              score: 100,
-                              missingIngredientIds: const [],
-                            ),
-                            ingredientById: const {},
-                          ),
-                        ),
+                      // Tarif detay sayfası henüz implementasyonsuz
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('${recipe.name} detayları yakında eklenecek!'))
                       );
                     },
                   ),

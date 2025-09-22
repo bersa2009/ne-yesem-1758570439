@@ -22,37 +22,57 @@ class _VoiceSearchScreenState extends State<VoiceSearchScreen> {
 
   Future<void> _listen() async {
     if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (status) {
-          print('Speech status: $status');
-          if (status == 'done') {
+      try {
+        bool available = await _speech.initialize(
+          onStatus: (status) {
+            print('Speech status: $status');
+            if (status == 'done' && mounted) {
+              setState(() {
+                _isListening = false;
+                _text = 'Dinleme tamamlandı';
+              });
+            }
+          },
+          onSoundLevelChange: (level) {
+            print('Sound level: $level');
+          },
+        );
+
+        if (available) {
+          if (mounted) {
             setState(() {
-              _isListening = false;
+              _isListening = true;
+              _text = 'Dinliyorum...';
             });
           }
-        },
-        onSoundLevelChange: (level) {
-          print('Sound level: $level');
-        },
-      );
 
-      if (available) {
-        setState(() {
-          _isListening = true;
-          _text = 'Dinliyorum...';
-        });
-
-        _speech.listen(
-          onResult: (result) {
-            setState(() {
-              _text = result.recognizedWords;
-              if (result.finalResult) {
-                _lastWords = result.recognizedWords;
+          _speech.listen(
+            onResult: (result) {
+              if (mounted) {
+                setState(() {
+                  _text = result.recognizedWords;
+                  if (result.finalResult) {
+                    _lastWords = result.recognizedWords;
+                  }
+                });
               }
-            });
-          },
-          localeId: 'tr_TR', // Türkçe için
-        );
+            },
+            localeId: 'tr_TR', // Türkçe için
+          );
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Ses tanıma özelliği kullanılamıyor'))
+            );
+          }
+        }
+      } catch (e) {
+        print('Ses tanıma hatası: $e');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Ses tanıma başlatılırken hata oluştu'))
+          );
+        }
       }
     } else {
       setState(() {
@@ -67,6 +87,12 @@ class _VoiceSearchScreenState extends State<VoiceSearchScreen> {
       _isListening = false;
       _speech.stop();
     });
+  }
+
+  @override
+  void dispose() {
+    _speech.stop();
+    super.dispose();
   }
 
   @override

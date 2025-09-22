@@ -71,7 +71,7 @@ class MatchingService {
       if (filters.maxTimeMinutes != null && recipe.timeMin <= filters.maxTimeMinutes!) {
         score += 5;
       }
-      if (filters.diet != null && recipe.dietTags.contains(filters.diet)) {
+      if (filters.diet != null && filters.diet!.isNotEmpty && recipe.dietTags.contains(filters.diet)) {
         score += 5;
       }
       if (recipe.equipment.every((e) => !filters.excludedEquipment.contains(e))) {

@@ -15,6 +15,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _language = 'Türkçe';
 
   @override
+  void initState() {
+    super.initState();
+    _loadSettings();
+  }
+
+  void _loadSettings() {
+    // Gerçek uygulamada SharedPreferences'dan ayarlar yüklenecek
+  }
+
+  void _saveSettings() {
+    // Gerçek uygulamada SharedPreferences'a ayarlar kaydedilecek
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Ayarlar')),
@@ -29,6 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {
                   _notificationsEnabled = value;
                 });
+                _saveSettings();
               },
             ),
           ),
@@ -42,6 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {
                   _darkModeEnabled = value;
                 });
+                _saveSettings();
                 // Burada tema değişikliği yapılacak
               },
             ),
@@ -93,6 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {
                   _voiceSearchEnabled = value;
                 });
+                _saveSettings();
               },
             ),
           ),
@@ -128,9 +145,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.help),
             title: const Text('Yardım'),
             onTap: () {
-              // Yardım ekranı açılacak
+              // Yardım ekranı henüz implementasyonsuz
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Yardım özelliği yakında eklenecek!'))
+                const SnackBar(content: Text('Yardım özelliği henüz implementasyonsuz'))
               );
             },
           ),

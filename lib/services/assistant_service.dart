@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AssistantService {
   static Future<void> openAssistantSettings(BuildContext context) async {
@@ -20,8 +21,10 @@ class AssistantService {
           TextButton(
             onPressed: () async {
               const url = 'https://support.google.com/assistant/answer/7393909';
-              if (await canLaunch(url)) {
-                await launch(url);
+              try {
+                await launchUrl(Uri.parse(url));
+              } catch (e) {
+                print('URL açma hatası: $e');
               }
             },
             child: const Text('Nasıl Kurulur?'),
