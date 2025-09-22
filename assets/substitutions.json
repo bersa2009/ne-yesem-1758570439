@@ -1,0 +1,8 @@
+[
+  {"ingredient_id":"krema","substitute_id":"sut","strength":0.8},
+  {"ingredient_id":"krema","substitute_id":"tereyagi","strength":0.8},
+  {"ingredient_id":"limon_suyu","substitute_id":"sirke","strength":0.7},
+  {"ingredient_id":"yogurt","substitute_id":"suzme_yogurt","strength":0.9},
+  {"ingredient_id":"peynir_kasar","substitute_id":"peynir_mozzarella","strength":0.85}
+]
+
