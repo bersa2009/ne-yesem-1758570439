@@ -8,6 +8,7 @@ import 'ingredients_screen.dart';
 import 'recipe_results_screen.dart';
 import 'favorites_screen.dart';
 import 'settings_screen.dart';
+import 'voice_assistant_screen.dart';
 
 class MainNavigationScreen extends ConsumerStatefulWidget {
   const MainNavigationScreen({super.key});
@@ -129,28 +130,36 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           ),
         ],
       ),
-      floatingActionButton: currentIndex == 0
-          ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Voice Input FAB
-                FloatingActionButton(
-                  heroTag: 'voice',
-                  onPressed: () => _showVoiceInput(context),
-                  backgroundColor: AppTheme.secondaryColor,
-                  child: const Icon(Icons.mic),
-                ),
-                const SizedBox(height: AppTheme.spacingSmall),
-                // Camera Input FAB
-                FloatingActionButton(
-                  heroTag: 'camera',
-                  onPressed: () => _showCameraInput(context),
-                  backgroundColor: AppTheme.accentColor,
-                  child: const Icon(Icons.camera_alt),
-                ),
-              ],
-            )
-          : null,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Voice Assistant FAB (Always visible)
+          FloatingActionButton(
+            heroTag: 'assistant',
+            onPressed: () => _showVoiceAssistant(context),
+            backgroundColor: AppTheme.primaryColor,
+            child: const Icon(Icons.assistant),
+          ),
+          if (currentIndex == 0) ...[
+            const SizedBox(height: AppTheme.spacingSmall),
+            // Voice Input FAB
+            FloatingActionButton(
+              heroTag: 'voice',
+              onPressed: () => _showVoiceInput(context),
+              backgroundColor: AppTheme.secondaryColor,
+              child: const Icon(Icons.mic),
+            ),
+            const SizedBox(height: AppTheme.spacingSmall),
+            // Camera Input FAB
+            FloatingActionButton(
+              heroTag: 'camera',
+              onPressed: () => _showCameraInput(context),
+              backgroundColor: AppTheme.accentColor,
+              child: const Icon(Icons.camera_alt),
+            ),
+          ],
+        ],
+      ),
     );
   }
 
@@ -169,6 +178,15 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => const CameraInputBottomSheet(),
+    );
+  }
+
+  void _showVoiceAssistant(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const VoiceAssistantScreen(),
+        fullscreenDialog: true,
+      ),
     );
   }
 }

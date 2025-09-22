@@ -5,6 +5,7 @@ import '../../ui/theme/app_theme.dart';
 import '../../providers/app_providers.dart';
 import '../../services/database_service.dart';
 import '../../services/security_service.dart';
+import 'voice_assistant_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -103,6 +104,19 @@ class SettingsScreen extends ConsumerWidget {
                 value: settings.voiceEnabled,
                 onChanged: (value) {
                   ref.read(appSettingsProvider.notifier).updateVoiceEnabled(value);
+                },
+              ),
+              ListTile(
+                title: const Text('Ne Yesem Asistanı'),
+                subtitle: const Text('Kendi sesli asistanımızı test edin'),
+                leading: const Icon(Icons.assistant, color: AppTheme.primaryColor),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const VoiceAssistantScreen(),
+                    ),
+                  );
                 },
               ),
               SwitchListTile(
