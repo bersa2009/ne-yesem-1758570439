@@ -112,11 +112,13 @@ class MatchFilters {
   final int? maxTimeMinutes;
   final String? diet;
   final List<String> excludedEquipment;
+  final int? minServings;
 
   const MatchFilters({
     this.maxTimeMinutes,
     this.diet,
     this.excludedEquipment = const [],
+    this.minServings,
   });
 }
 
@@ -124,11 +126,13 @@ class MatchResult {
   final Recipe recipe;
   final int score;
   final List<String> missingIngredientIds;
+  final int maxScore;
 
   const MatchResult({
     required this.recipe,
     required this.score,
     required this.missingIngredientIds,
+    required this.maxScore,
   });
 }
 
