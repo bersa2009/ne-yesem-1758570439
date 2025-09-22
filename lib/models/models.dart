@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Ingredient {
   final String id;
   final String name;
@@ -130,5 +132,201 @@ class MatchResult {
     required this.score,
     required this.missingIngredientIds,
   });
+}
+
+class User {
+  final String id;
+  final String email;
+  final String displayName;
+  final String photoUrl;
+  final DateTime createdAt;
+  final int dailySearchCount;
+  final bool isProUser;
+
+  User({
+    required this.id,
+    required this.email,
+    required this.displayName,
+    required this.photoUrl,
+    required this.createdAt,
+    required this.dailySearchCount,
+    required this.isProUser,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'] as String,
+        email: json['email'] as String,
+        displayName: json['displayName'] as String,
+        photoUrl: json['photoUrl'] as String? ?? '',
+        createdAt: (json['createdAt'] as Timestamp).toDate(),
+        dailySearchCount: json['dailySearchCount'] as int? ?? 0,
+        isProUser: json['isProUser'] as bool? ?? false,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'email': email,
+        'displayName': displayName,
+        'photoUrl': photoUrl,
+        'createdAt': Timestamp.fromDate(createdAt),
+        'dailySearchCount': dailySearchCount,
+        'isProUser': isProUser,
+      };
+}
+
+class PantryItem {
+  final String id;
+  final String ingredientId;
+  final String ingredientName;
+  final double quantity;
+  final String unit;
+  final DateTime? expiryDate;
+  final DateTime addedAt;
+
+  PantryItem({
+    required this.id,
+    required this.ingredientId,
+    required this.ingredientName,
+    required this.quantity,
+    required this.unit,
+    this.expiryDate,
+    required this.addedAt,
+  });
+
+  factory PantryItem.fromJson(Map<String, dynamic> json) => PantryItem(
+        id: json['id'] as String,
+        ingredientId: json['ingredientId'] as String,
+        ingredientName: json['ingredientName'] as String,
+        quantity: (json['quantity'] as num).toDouble(),
+        unit: json['unit'] as String,
+        expiryDate: json['expiryDate'] != null ? (json['expiryDate'] as Timestamp).toDate() : null,
+        addedAt: (json['addedAt'] as Timestamp).toDate(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'ingredientId': ingredientId,
+        'ingredientName': ingredientName,
+        'quantity': quantity,
+        'unit': unit,
+        'expiryDate': expiryDate != null ? Timestamp.fromDate(expiryDate!) : null,
+        'addedAt': Timestamp.fromDate(addedAt),
+      };
+}
+
+class FavoriteRecipe {
+  final String id;
+  final String recipeId;
+  final String recipeName;
+  final DateTime addedAt;
+
+  FavoriteRecipe({
+    required this.id,
+    required this.recipeId,
+    required this.recipeName,
+    required this.addedAt,
+  });
+
+  factory FavoriteRecipe.fromJson(Map<String, dynamic> json) => FavoriteRecipe(
+        id: json['id'] as String,
+        recipeId: json['recipeId'] as String,
+        recipeName: json['recipeName'] as String,
+        addedAt: (json['addedAt'] as Timestamp).toDate(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'recipeId': recipeId,
+        'recipeName': recipeName,
+        'addedAt': Timestamp.fromDate(addedAt),
+      };
+}
+
+class SearchHistory {
+  final String id;
+  final List<String> ingredientIds;
+  final DateTime searchedAt;
+  final int resultCount;
+
+  SearchHistory({
+    required this.id,
+    required this.ingredientIds,
+    required this.searchedAt,
+    required this.resultCount,
+  });
+
+  factory SearchHistory.fromJson(Map<String, dynamic> json) => SearchHistory(
+        id: json['id'] as String,
+        ingredientIds: List<String>.from(json['ingredientIds'] as List<dynamic>),
+        searchedAt: (json['searchedAt'] as Timestamp).toDate(),
+        resultCount: json['resultCount'] as int? ?? 0,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'ingredientIds': ingredientIds,
+        'searchedAt': Timestamp.fromDate(searchedAt),
+        'resultCount': resultCount,
+      };
+}
+
+class ShoppingListItem {
+  final String id;
+  final String name;
+  final String category;
+  final bool checked;
+  final DateTime addedAt;
+
+  ShoppingListItem({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.checked,
+    required this.addedAt,
+  });
+
+  factory ShoppingListItem.fromJson(Map<String, dynamic> json) => ShoppingListItem(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        category: json['category'] as String,
+        checked: json['checked'] as bool? ?? false,
+        addedAt: (json['addedAt'] as Timestamp).toDate(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'category': category,
+        'checked': checked,
+        'addedAt': Timestamp.fromDate(addedAt),
+      };
+}
+
+class RecipeFeedback {
+  final String id;
+  final String recipeId;
+  final bool helpful;
+  final DateTime createdAt;
+
+  RecipeFeedback({
+    required this.id,
+    required this.recipeId,
+    required this.helpful,
+    required this.createdAt,
+  });
+
+  factory RecipeFeedback.fromJson(Map<String, dynamic> json) => RecipeFeedback(
+        id: json['id'] as String,
+        recipeId: json['recipeId'] as String,
+        helpful: json['helpful'] as bool,
+        createdAt: (json['createdAt'] as Timestamp).toDate(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'recipeId': recipeId,
+        'helpful': helpful,
+        'createdAt': Timestamp.fromDate(createdAt),
+      };
 }
 
