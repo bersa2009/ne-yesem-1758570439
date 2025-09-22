@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ne_yesem">
+
+    <!-- Kamera izni -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Mikrofon izni -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- İnternet izni (varsa) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Kamera özelliği -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <application
+        android:label="Ne Yesem?"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter android:label="Ne Yesem?">
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Asistan entegrasyonu için intent filter -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Google Assistant için -->
+                <data android:scheme="https" android:host="ne-yesem.app" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
