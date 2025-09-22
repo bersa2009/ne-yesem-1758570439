@@ -86,7 +86,7 @@ class MatchingService {
       final meetsThreshold = score >= (theoreticalMax * 0.5).round();
       if (!meetsThreshold) continue;
 
-      results.add(MatchResult(recipe: recipe, score: score, missingIngredientIds: missing));
+      results.add(MatchResult(recipe: recipe, score: score, maxScore: theoreticalMax, missingIngredientIds: missing));
     }
 
     results.sort((a, b) => b.score.compareTo(a.score));

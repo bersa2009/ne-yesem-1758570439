@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/models.dart';
 import '../../services/matching_service.dart';
 import 'results_screen.dart';
+import '../../services/local_store.dart';
 
 class IngredientsScreen extends StatefulWidget {
   const IngredientsScreen({super.key});
@@ -15,6 +16,9 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
+  int? _maxTime;
+  String? _diet;
+  final Set<String> _excludedEquipment = <String>{};
 
   @override
   void initState() {
@@ -54,6 +58,75 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                   onChanged: (_) => setState(() {}),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DropdownButtonFormField<int>(
+                        value: _maxTime,
+                        decoration: const InputDecoration(labelText: 'Maks süre'),
+                        items: const [null, 15, 30, 45, 60]
+                            .map((v) => DropdownMenuItem<int>(value: v, child: Text(v == null ? 'Yok' : '$v dk')))
+                            .toList(),
+                        onChanged: (v) => setState(() => _maxTime = v),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: DropdownButtonFormField<String>(
+                        value: _diet,
+                        decoration: const InputDecoration(labelText: 'Diyet'),
+                        items: const [null, 'vejetaryen', 'vegan', 'glutensiz']
+                            .map((v) => DropdownMenuItem<String>(value: v, child: Text(v ?? 'Yok')))
+                            .toList(),
+                        onChanged: (v) => setState(() => _diet = v),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Wrap(
+                  spacing: 8,
+                  children: [
+                    FilterChip(
+                      label: const Text('Tava yok'),
+                      selected: _excludedEquipment.contains('tava'),
+                      onSelected: (v) => setState(() {
+                        if (v) {
+                          _excludedEquipment.add('tava');
+                        } else {
+                          _excludedEquipment.remove('tava');
+                        }
+                      }),
+                    ),
+                    FilterChip(
+                      label: const Text('Fırın yok'),
+                      selected: _excludedEquipment.contains('firin'),
+                      onSelected: (v) => setState(() {
+                        if (v) {
+                          _excludedEquipment.add('firin');
+                        } else {
+                          _excludedEquipment.remove('firin');
+                        }
+                      }),
+                    ),
+                    FilterChip(
+                      label: const Text('Blender yok'),
+                      selected: _excludedEquipment.contains('blender'),
+                      onSelected: (v) => setState(() {
+                        if (v) {
+                          _excludedEquipment.add('blender');
+                        } else {
+                          _excludedEquipment.remove('blender');
+                        }
+                      }),
+                    ),
+                  ],
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: filtered.length,
@@ -84,7 +157,11 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                   child: ElevatedButton.icon(
                     onPressed: _selectedIngredientIds.isEmpty ? null : () async {
                       final service = await MatchingService.loadFromAssets();
-                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                      await LocalStore.instance.addSearchQuery(_controller.text.trim());
+                      final results = service.match(
+                        userIngredientIds: _selectedIngredientIds,
+                        filters: MatchFilters(maxTimeMinutes: _maxTime, diet: _diet, excludedEquipment: _excludedEquipment.toList()),
+                      );
                       if (!mounted) return;
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
                     },
