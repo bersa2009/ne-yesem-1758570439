@@ -1,0 +1,397 @@
+[
+  {
+    "id": "makarna_domatesli",
+    "name": "Domatesli Makarna",
+    "description": "Hızlı ve pratik domates soslu makarna.",
+    "steps": [
+      "Makarnayı bol tuzlu suda haşlayın.",
+      "Zeytinyağında doğranmış soğanı kavurun.",
+      "Rendelenmiş domatesi ekleyip 10 dk pişirin.",
+      "Haşlanan makarnayı sos ile karıştırın.",
+      "Üzerine kaşar rendeleyip servis edin."
+    ],
+    "time_min": 20,
+    "servings": 2,
+    "difficulty": "kolay",
+    "equipment": ["tencere", "tava"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 80,
+    "recipe_ingredients": [
+      {"ingredient_id":"makarna","quantity":250,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"domates","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"zeytinyagi","quantity":2,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":0.5,"unit":"adet","optional":true,"required":false},
+      {"ingredient_id":"peynir_kasar","quantity":30,"unit":"g","optional":true,"required":false}
+    ]
+  },
+  {
+    "id": "menemen",
+    "name": "Menemen",
+    "description": "Klasik Türk usulü menemen.",
+    "steps": [
+      "Zeytinyağında soğanı kavurun.",
+      "Doğranmış domatesi ekleyin ve suyunu çekene kadar pişirin.",
+      "Yumurta ekleyip karıştırarak pişirin.",
+      "Tuz ve karabiber ile servis edin."
+    ],
+    "time_min": 15,
+    "servings": 2,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 90,
+    "recipe_ingredients": [
+      {"ingredient_id":"domates","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"yumurta","quantity":3,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"zeytinyagi","quantity":1,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":0.5,"unit":"adet","optional":true,"required":false}
+    ]
+  },
+  {
+    "id": "mercimek_corbasi",
+    "name": "Mercimek Çorbası",
+    "description": "Geleneksel Türk mercimek çorbası. Sıcak ve doyurucu.",
+    "steps": [
+      "Mercimeği yıkayın ve süzün.",
+      "Tencereye mercimek, soğan, havuç, patates ve suyu ekleyin.",
+      "Orta ateşte 25 dakika kaynatın.",
+      "Blender ile püre haline getirin.",
+      "Tereyağı ve baharatları ekleyip 5 dakika daha pişirin.",
+      "Limon ile servis edin."
+    ],
+    "time_min": 35,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tencere", "blender"],
+    "diet_tags": ["vejetaryen", "sağlıklı"],
+    "image_url": "",
+    "popularity_score": 95,
+    "recipe_ingredients": [
+      {"ingredient_id":"mercimek_kirmizi","quantity":200,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"havuc","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"patates","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"su","quantity":1000,"unit":"ml","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":1,"unit":"YK","optional":true,"required":false},
+      {"ingredient_id":"tuz","quantity":1,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "karniyarik",
+    "name": "Karnıyarık",
+    "description": "Geleneksel Türk mutfağının vazgeçilmez lezzeti.",
+    "steps": [
+      "Patlıcanları boyuna ikiye kesin ve tuzlayın.",
+      "Kızartmak için sıcak yağa atın.",
+      "Kıymayı soğan ile kavurun.",
+      "Domates, biber ekleyip pişirin.",
+      "Patlıcanların içini oyup kıyma karışımı doldurun.",
+      "Fırında 30 dakika pişirin."
+    ],
+    "time_min": 60,
+    "servings": 4,
+    "difficulty": "orta",
+    "equipment": ["tava", "fırın"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 85,
+    "recipe_ingredients": [
+      {"ingredient_id":"patlican","quantity":4,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"kiyma","quantity":300,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"domates","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"biber","quantity":2,"unit":"adet","optional":true,"required":false},
+      {"ingredient_id":"zeytinyagi","quantity":3,"unit":"YK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "pilav",
+    "name": "Pirinç Pilavı",
+    "description": "Türk mutfağının temel lezzeti, tereyağlı pirinç pilavı.",
+    "steps": [
+      "Pirinci yıkayın ve süzün.",
+      "Tereyağında pirinci kavurun.",
+      "Sıcak su ve tuz ekleyin.",
+      "Kısık ateşte 15 dakika pişirin.",
+      "Ocaktan alıp 10 dakika dinlendirin."
+    ],
+    "time_min": 30,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tencere"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 75,
+    "recipe_ingredients": [
+      {"ingredient_id":"pirinc","quantity":200,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":2,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"su","quantity":400,"unit":"ml","optional":false,"required":true},
+      {"ingredient_id":"tuz","quantity":1,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "omlet",
+    "name": "Peynirli Omlet",
+    "description": "Kahvaltının vazgeçilmezi, pratik peynirli omlet.",
+    "steps": [
+      "Yumurtaları çırpın, tuz ve karabiber ekleyin.",
+      "Tavayı ısıtın ve tereyağı ekleyin.",
+      "Yumurtaları dökün ve pişmeye bırakın.",
+      "Üzerine peyniri serpin.",
+      "İkiye katlayıp servis edin."
+    ],
+    "time_min": 10,
+    "servings": 1,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 70,
+    "recipe_ingredients": [
+      {"ingredient_id":"yumurta","quantity":3,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"peynir_beyaz","quantity":50,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":1,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"tuz","quantity":0.5,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "salata_coban",
+    "name": "Çoban Salatası",
+    "description": "Taze ve sağlıklı Türk salatası.",
+    "steps": [
+      "Domatesleri küçük küpler halinde doğrayın.",
+      "Salatalık, soğan ve biberi ince doğrayın.",
+      "Maydanozu ince kıyın.",
+      "Tüm malzemeleri karıştırın.",
+      "Zeytinyağı, limon suyu, tuz ve sumak ile baharatlayın."
+    ],
+    "time_min": 15,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": [],
+    "diet_tags": ["vejetaryen", "vegan", "sağlıklı"],
+    "image_url": "",
+    "popularity_score": 85,
+    "recipe_ingredients": [
+      {"ingredient_id":"domates","quantity":3,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"salatalik","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"biber","quantity":2,"unit":"adet","optional":true,"required":false},
+      {"ingredient_id":"maydanoz","quantity":1,"unit":"demet","optional":false,"required":true},
+      {"ingredient_id":"zeytinyagi","quantity":3,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"limon","quantity":1,"unit":"adet","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "tavuk_sote",
+    "name": "Tavuk Sote",
+    "description": "Sebzeli tavuk sote, hafif ve lezzetli.",
+    "steps": [
+      "Tavuk etini küp küp doğrayın.",
+      "Zeytinyağında tavukları kavurun.",
+      "Soğan, biber, havucu ekleyin.",
+      "Domates ve baharatları ilave edin.",
+      "20 dakika kısık ateşte pişirin.",
+      "Maydanoz ile süsleyip servis edin."
+    ],
+    "time_min": 35,
+    "servings": 4,
+    "difficulty": "orta",
+    "equipment": ["tava"],
+    "diet_tags": ["sağlıklı"],
+    "image_url": "",
+    "popularity_score": 80,
+    "recipe_ingredients": [
+      {"ingredient_id":"tavuk_gogus","quantity":500,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"biber","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"havuc","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"domates","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"zeytinyagi","quantity":2,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"maydanoz","quantity":0.5,"unit":"demet","optional":true,"required":false}
+    ]
+  },
+  {
+    "id": "bulgur_pilavi",
+    "name": "Bulgur Pilavı",
+    "description": "Geleneksel bulgur pilavı, sağlıklı ve doyurucu.",
+    "steps": [
+      "Bulguru yıkayın ve süzün.",
+      "Tereyağında bulguru kavurun.",
+      "Sıcak et suyu ve tuz ekleyin.",
+      "Kısık ateşte 20 dakika pişirin.",
+      "5 dakika dinlendirip servis edin."
+    ],
+    "time_min": 30,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tencere"],
+    "diet_tags": ["sağlıklı"],
+    "image_url": "",
+    "popularity_score": 70,
+    "recipe_ingredients": [
+      {"ingredient_id":"bulgur","quantity":200,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":2,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"et_suyu","quantity":400,"unit":"ml","optional":false,"required":true},
+      {"ingredient_id":"tuz","quantity":1,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "sucuklu_yumurta",
+    "name": "Sucuklu Yumurta",
+    "description": "Kahvaltının klasik lezzeti.",
+    "steps": [
+      "Sucukları dilimleyin.",
+      "Tavada sucukları kızartın.",
+      "Yumurtaları sucukların üzerine kırın.",
+      "İstediğiniz kıvamda pişirin.",
+      "Sıcak servis edin."
+    ],
+    "time_min": 10,
+    "servings": 2,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 75,
+    "recipe_ingredients": [
+      {"ingredient_id":"sucuk","quantity":100,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"yumurta","quantity":4,"unit":"adet","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "patates_kizartmasi",
+    "name": "Patates Kızartması",
+    "description": "Çıtır çıtır patates kızartması.",
+    "steps": [
+      "Patatesleri soyun ve çubuk şeklinde kesin.",
+      "Soğuk suda bekletin.",
+      "Kağıt havlu ile kurulayın.",
+      "Kızgın yağda altın sarısı olana kadar kızartın.",
+      "Tuz serpip servis edin."
+    ],
+    "time_min": 25,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 85,
+    "recipe_ingredients": [
+      {"ingredient_id":"patates","quantity":500,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"ayçiçek_yagi","quantity":200,"unit":"ml","optional":false,"required":true},
+      {"ingredient_id":"tuz","quantity":1,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "yogurtlu_kebap",
+    "name": "Yoğurtlu Kebap",
+    "description": "Yoğurt soslu enfes kebap.",
+    "steps": [
+      "Eti marine edin ve ızgarada pişirin.",
+      "Pide ekmeğini kesip tabağa yerleştirin.",
+      "Üzerine kebapları dizin.",
+      "Yoğurt sosunu hazırlayın.",
+      "Kebapların üzerine yoğurt dökün.",
+      "Tereyağlı sos ile servis edin."
+    ],
+    "time_min": 45,
+    "servings": 4,
+    "difficulty": "orta",
+    "equipment": ["ızgara", "tava"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 90,
+    "recipe_ingredients": [
+      {"ingredient_id":"kuzu_eti","quantity":600,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"yogurt","quantity":400,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"pide_ekmegi","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":3,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"sarimsak","quantity":3,"unit":"diş","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "lahmacun",
+    "name": "Lahmacun",
+    "description": "İnce hamurlu Türk pizzası.",
+    "steps": [
+      "Hamuru hazırlayın ve dinlendirin.",
+      "Kıyma harcını hazırlayın.",
+      "Hamuru ince açın.",
+      "Üzerine harcı yayın.",
+      "Fırında 8-10 dakika pişirin.",
+      "Maydanoz ve limon ile servis edin."
+    ],
+    "time_min": 90,
+    "servings": 6,
+    "difficulty": "zor",
+    "equipment": ["fırın", "oklava"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 95,
+    "recipe_ingredients": [
+      {"ingredient_id":"un","quantity":300,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"kiyma","quantity":250,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"domates","quantity":3,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"biber","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"maydanoz","quantity":1,"unit":"demet","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "kofte",
+    "name": "Köfte",
+    "description": "Ev yapımı lezzetli köfte.",
+    "steps": [
+      "Kıymayı soğan ve baharatlarla yoğurun.",
+      "Köfte şekli verin.",
+      "Tavada kızartın.",
+      "Her tarafı pişene kadar çevirin.",
+      "Sıcak servis edin."
+    ],
+    "time_min": 30,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 85,
+    "recipe_ingredients": [
+      {"ingredient_id":"kiyma","quantity":500,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"ekmek_icisi","quantity":2,"unit":"dilim","optional":false,"required":true},
+      {"ingredient_id":"yumurta","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"tuz","quantity":1,"unit":"CK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "manti",
+    "name": "Mantı",
+    "description": "Geleneksel Türk mantısı.",
+    "steps": [
+      "Hamuru hazırlayın ve açın.",
+      "Kıyma harcını hazırlayın.",
+      "Küçük kareler kesin ve doldurun.",
+      "Kaynar suda haşlayın.",
+      "Yoğurt ve tereyağlı sos ile servis edin."
+    ],
+    "time_min": 120,
+    "servings": 6,
+    "difficulty": "zor",
+    "equipment": ["tencere", "oklava"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 90,
+    "recipe_ingredients": [
+      {"ingredient_id":"un","quantity":400,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"kiyma","quantity":300,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":2,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"yogurt","quantity":300,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"tereyagi","quantity":3,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"yumurta","quantity":2,"unit":"adet","optional":false,"required":true}
+    ]
+  }
+]
+

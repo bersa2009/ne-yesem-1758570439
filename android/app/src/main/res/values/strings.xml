@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ne Yesem?</string>
+    <string name="app_description">Dolapta ne varsa, sofrada lezzet olsun!</string>
+    
+    <!-- Shortcut strings -->
+    <string name="shortcut_add_ingredients_short">Malzeme Ekle</string>
+    <string name="shortcut_add_ingredients_long">Sesle malzeme ekle</string>
+    
+    <string name="shortcut_find_recipes_short">Tarif Bul</string>
+    <string name="shortcut_find_recipes_long">Hızlı tarif bul</string>
+    
+    <string name="shortcut_camera_short">Kamera</string>
+    <string name="shortcut_camera_long">Kamera ile malzeme tara</string>
+    
+    <string name="shortcut_voice_short">Sesli Arama</string>
+    <string name="shortcut_voice_long">Sesle ne yesem?</string>
+    
+    <!-- Permissions -->
+    <string name="camera_permission_title">Kamera İzni</string>
+    <string name="camera_permission_message">Malzemeleri kamera ile tanımak için kamera iznine ihtiyacımız var.</string>
+    
+    <string name="microphone_permission_title">Mikrofon İzni</string>
+    <string name="microphone_permission_message">Sesli komutlar için mikrofon iznine ihtiyacımız var.</string>
+    
+    <!-- Notifications -->
+    <string name="notification_channel_name">Ne Yesem Bildirimleri</string>
+    <string name="notification_channel_description">Tarif önerileri ve hatırlatmalar</string>
+    
+    <!-- Error messages -->
+    <string name="error_camera_not_available">Kamera kullanılamıyor</string>
+    <string name="error_microphone_not_available">Mikrofon kullanılamıyor</string>
+    <string name="error_network_not_available">İnternet bağlantısı yok</string>
+    <string name="error_generic">Bir hata oluştu</string>
+</resources>

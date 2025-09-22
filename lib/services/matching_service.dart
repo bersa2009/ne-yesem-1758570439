@@ -14,9 +14,9 @@ class MatchingService {
   });
 
   static Future<MatchingService> loadFromAssets() async {
-    final ingredientsJson = jsonDecode(await rootBundle.loadString('assets/ingredients.json')) as List<dynamic>;
-    final recipesJson = jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List<dynamic>;
-    final subsJson = jsonDecode(await rootBundle.loadString('assets/substitutions.json')) as List<dynamic>;
+    final ingredientsJson = jsonDecode(await rootBundle.loadString('assets/data/ingredients.json')) as List<dynamic>;
+    final recipesJson = jsonDecode(await rootBundle.loadString('assets/data/recipes.json')) as List<dynamic>;
+    final subsJson = jsonDecode(await rootBundle.loadString('assets/data/substitutions.json')) as List<dynamic>;
 
     final ingredients = ingredientsJson.map((e) => Ingredient.fromJson(e as Map<String, dynamic>)).toList();
     final ingredientById = {for (final i in ingredients) i.id: i};
