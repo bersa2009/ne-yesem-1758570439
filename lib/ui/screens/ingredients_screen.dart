@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/models.dart';
 import '../../services/matching_service.dart';
+import '../../services/ai_provider.dart';
 import 'results_screen.dart';
 
-class IngredientsScreen extends StatefulWidget {
+class IngredientsScreen extends ConsumerStatefulWidget {
   const IngredientsScreen({super.key});
 
   @override
-  State<IngredientsScreen> createState() => _IngredientsScreenState();
+  ConsumerState<IngredientsScreen> createState() => _IngredientsScreenState();
 }
 
-class _IngredientsScreenState extends State<IngredientsScreen> {
+class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
@@ -79,18 +81,80 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _selectedIngredientIds.isEmpty ? null : () async {
-                      final service = await MatchingService.loadFromAssets();
-                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
-                      if (!mounted) return;
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
-                    },
-                    icon: const Icon(Icons.search),
-                    label: const Text('Tarif Ara'),
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                          final service = await MatchingService.loadFromAssets();
+                          final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                          if (!mounted) return;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
+                        },
+                        icon: const Icon(Icons.search),
+                        label: const Text('Klasik Tarif Ara'),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final aiAsyncValue = ref.watch(aiMatchResultsProvider(
+                            MatchRequest(
+                              userIngredientIds: _selectedIngredientIds,
+                              filters: const MatchFilters(maxTimeMinutes: 30),
+                            ),
+                          ));
+
+                          return aiAsyncValue.when(
+                            data: (results) => ElevatedButton.icon(
+                              onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                                if (!mounted) return;
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => ResultsScreen(
+                                    results: results,
+                                    ingredientById: (await MatchingService.loadFromAssets()).ingredientById,
+                                    isAIMode: true,
+                                  ),
+                                ));
+                              },
+                              icon: const Icon(Icons.smart_toy),
+                              label: const Text('AI ile Tarif Öner'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                            loading: () => const ElevatedButton.icon(
+                              onPressed: null,
+                              icon: SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              ),
+                              label: Text('AI Hazırlanıyor...'),
+                            ),
+                            error: (error, stack) => ElevatedButton.icon(
+                              onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                                final service = await MatchingService.loadFromAssets();
+                                final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                                if (!mounted) return;
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
+                              },
+                              icon: const Icon(Icons.warning),
+                              label: const Text('AI Hata - Klasik Ara'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],
