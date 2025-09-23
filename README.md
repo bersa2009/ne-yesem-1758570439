@@ -1,10 +1,10 @@
-Ne Yesem? (MVP)
+Ne Yesem? (AI Entegre)
 
 Overview
- - Mobil öncelikli yemek öneri uygulaması. Kullanıcı elindeki malzemeleri girer, uygulama uyum skoruna göre tarif önerir.
+ - Mobil öncelikli yemek öneri uygulaması. Kullanıcı elindeki malzemeleri girer, uygulama AI destekli uyum skoruna göre tarif önerir.
 
 Durum
- - Bu depo Flutter kurulumu olmayan ortamda oluşturuldu. Kod yapısı Flutter standardını izler. `flutter` kurulduğunda normal şekilde derlenebilir.
+ - Yerel AI (TFLite) eklendi. Model bulunamazsa geliştirilmiş sezgisel motor devreye girer.
 
 Hızlı Başlangıç
  1) Flutter SDK kurun (3.22+)
@@ -28,6 +28,13 @@ Proje Yapısı
    - recipes.json
    - ingredients.json
    - substitutions.json
+    - data/ai_matcher.tflite
+    - data/ai_schema.json
+
+AI Hakkında
+- `lib/services/ai_service.dart`: TFLite tabanlı tahmin + kişiselleştirme + öğrenen ikameler
+- Riverpod provider: `aiServiceProvider`
+- V2 Hazırlık: `exportLearningSnapshot()` ile veriyi dışa aktarın; Firebase ile birleştirip `firebase_ml_model_downloader` üzerinden yeni modeli indirip kullanıma hazırlayabilirsiniz.
 
 Lisans: MIT
 

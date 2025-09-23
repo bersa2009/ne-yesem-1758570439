@@ -1,0 +1,2 @@
+Placeholder TFLite model. This file is intentionally non-functional.
+The app will catch interpreter load errors and fall back to heuristic AI.

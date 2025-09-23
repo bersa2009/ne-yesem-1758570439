@@ -11,9 +11,14 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_riverpod: ^2.5.1
   collection: ^1.18.0
   intl: ^0.19.0
   path: ^1.9.0
+  tflite_flutter: ^0.10.4
+  tflite_flutter_helper: ^0.4.4
+  firebase_core: ^3.4.0
+  firebase_ml_model_downloader: ^0.3.0+16
 
 dev_dependencies:
   flutter_test:
@@ -26,4 +31,6 @@ flutter:
     - assets/recipes.json
     - assets/ingredients.json
     - assets/substitutions.json
+    - assets/data/ai_matcher.tflite
+    - assets/data/ai_schema.json
 
