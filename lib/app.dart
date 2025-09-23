@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ui/screens/welcome_screen.dart';
 
 class NeYesemApp extends StatelessWidget {
@@ -6,13 +7,15 @@ class NeYesemApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ne Yesem?',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2F80ED)),
-        useMaterial3: true,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Ne Yesem?',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2F80ED)),
+          useMaterial3: true,
+        ),
+        home: const WelcomeScreen(),
       ),
-      home: const WelcomeScreen(),
     );
   }
 }

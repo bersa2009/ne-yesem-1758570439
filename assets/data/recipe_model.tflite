@@ -1,0 +1,13 @@
+# Bu dosya mock TFLite model dosyasıdır
+# Gerçek TFLite modeli Python ile TensorFlow kullanarak eğitilmelidir
+# Bu örnek sadece dosya yapısını temsil eder
+
+MODEL_PLACEHOLDER = "TFLite model burada olacak"
+VERSION = "1.0.0"
+DESCRIPTION = "Tarif önerisi için eğitilmiş KNN tabanlı TFLite modeli"
+
+# Model eğitimi için gerekli kod:
+# 1. training_data.json'dan veriyi yükle
+# 2. KNN algoritması ile modeli eğit
+# 3. TensorFlow Lite formatında kaydet
+# 4. Bu dosyayı gerçek model ile değiştir

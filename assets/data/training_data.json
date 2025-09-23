@@ -1,0 +1,128 @@
+{
+  "ingredients": [
+    {"id": "domates", "name": "Domates", "category": "Sebze", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "makarna", "name": "Makarna", "category": "Tahıl", "vector": [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "zeytinyagi", "name": "Zeytinyağı", "category": "Yağ", "vector": [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "sogan", "name": "Soğan", "category": "Sebze", "vector": [1, 0, 0, 1, 0, 0, 0, 0, 1, 0]},
+    {"id": "yumurta", "name": "Yumurta", "category": "Protein", "vector": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]},
+    {"id": "peynir_kasar", "name": "Kaşar Peyniri", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 0, 0, 1]},
+    {"id": "peynir_mozzarella", "name": "Mozzarella", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 1, 0, 1]},
+    {"id": "tereyagi", "name": "Tereyağı", "category": "Yağ", "vector": [0, 0, 1, 0, 0, 1, 0, 0, 0, 0]},
+    {"id": "sut", "name": "Süt", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 0, 1, 1]},
+    {"id": "krema", "name": "Krema", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 1, 0, 1, 0]},
+    {"id": "un", "name": "Un", "category": "Tahıl", "vector": [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "seker", "name": "Şeker", "category": "Tatlandırıcı", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "tuz", "name": "Tuz", "category": "Baharat", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "karabiber", "name": "Karabiber", "category": "Baharat", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "sarmısak", "name": "Sarımsak", "category": "Sebze", "vector": [1, 0, 0, 1, 0, 0, 0, 0, 1, 0]},
+    {"id": "patates", "name": "Patates", "category": "Sebze", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "pirinc", "name": "Pirinç", "category": "Tahıl", "vector": [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "tavuk", "name": "Tavuk", "category": "Protein", "vector": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]},
+    {"id": "kıyma", "name": "Kıyma", "category": "Protein", "vector": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]},
+    {"id": "salca", "name": "Salça", "category": "Sebze", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "limon", "name": "Limon", "category": "Meyve", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": "maydanoz", "name": "Maydanoz", "category": "Ot", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "dereotu", "name": "Dereotu", "category": "Ot", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "nanemint", "name": "Nane", "category": "Ot", "vector": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]},
+    {"id": "yogurt", "name": "Yoğurt", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 0, 1, 0]}
+  ],
+  "recipes": [
+    {
+      "id": "makarna_domatesli",
+      "name": "Domatesli Makarna",
+      "ingredients": ["makarna", "domates", "zeytinyagi", "sogan", "peynir_kasar"],
+      "time_min": 20,
+      "difficulty": "kolay",
+      "diet_tags": ["vejetaryen"],
+      "popularity_score": 80
+    },
+    {
+      "id": "menemen",
+      "name": "Menemen",
+      "ingredients": ["domates", "yumurta", "zeytinyagi", "sogan"],
+      "time_min": 15,
+      "difficulty": "kolay",
+      "diet_tags": ["vejetaryen"],
+      "popularity_score": 90
+    },
+    {
+      "id": "patates_kızartması",
+      "name": "Patates Kızartması",
+      "ingredients": ["patates", "zeytinyagi", "tuz"],
+      "time_min": 25,
+      "difficulty": "kolay",
+      "diet_tags": ["vejetaryen", "vegan"],
+      "popularity_score": 75
+    },
+    {
+      "id": "tavuk_sote",
+      "name": "Tavuk Sote",
+      "ingredients": ["tavuk", "sogan", "domates", "salca", "zeytinyagi"],
+      "time_min": 30,
+      "difficulty": "orta",
+      "diet_tags": [],
+      "popularity_score": 85
+    },
+    {
+      "id": "pirinc_pilavi",
+      "name": "Pirinç Pilavı",
+      "ingredients": ["pirinc", "tereyagi", "tuz", "sogan"],
+      "time_min": 25,
+      "difficulty": "kolay",
+      "diet_tags": ["vejetaryen"],
+      "popularity_score": 70
+    }
+  ],
+  "training_examples": [
+    {
+      "user_ingredients": ["domates", "makarna", "zeytinyagi", "sogan"],
+      "recipe_id": "makarna_domatesli",
+      "score": 95
+    },
+    {
+      "user_ingredients": ["domates", "yumurta", "zeytinyagi"],
+      "recipe_id": "menemen",
+      "score": 90
+    },
+    {
+      "user_ingredients": ["patates", "zeytinyagi"],
+      "recipe_id": "patates_kızartması",
+      "score": 85
+    },
+    {
+      "user_ingredients": ["tavuk", "sogan", "domates"],
+      "recipe_id": "tavuk_sote",
+      "score": 88
+    },
+    {
+      "user_ingredients": ["pirinc", "tereyagi"],
+      "recipe_id": "pirinc_pilavi",
+      "score": 80
+    },
+    {
+      "user_ingredients": ["domates", "makarna", "zeytinyagi", "sogan", "peynir_kasar"],
+      "recipe_id": "makarna_domatesli",
+      "score": 100
+    },
+    {
+      "user_ingredients": ["domates", "yumurta", "zeytinyagi", "sogan"],
+      "recipe_id": "menemen",
+      "score": 95
+    },
+    {
+      "user_ingredients": ["patates", "zeytinyagi", "tuz"],
+      "recipe_id": "patates_kızartması",
+      "score": 90
+    },
+    {
+      "user_ingredients": ["tavuk", "sogan", "domates", "salca"],
+      "recipe_id": "tavuk_sote",
+      "score": 92
+    },
+    {
+      "user_ingredients": ["pirinc", "tereyagi", "sogan"],
+      "recipe_id": "pirinc_pilavi",
+      "score": 88
+    }
+  ]
+}

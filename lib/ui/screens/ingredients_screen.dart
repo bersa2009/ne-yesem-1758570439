@@ -1,20 +1,23 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/models.dart';
 import '../../services/matching_service.dart';
+import '../../services/ai_provider.dart';
 import 'results_screen.dart';
 
-class IngredientsScreen extends StatefulWidget {
+class IngredientsScreen extends ConsumerStatefulWidget {
   const IngredientsScreen({super.key});
 
   @override
-  State<IngredientsScreen> createState() => _IngredientsScreenState();
+  ConsumerState<IngredientsScreen> createState() => _IngredientsScreenState();
 }
 
-class _IngredientsScreenState extends State<IngredientsScreen> {
+class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -23,9 +26,14 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   }
 
   Future<List<Ingredient>> _loadIngredients() async {
-    final jsonStr = await DefaultAssetBundle.of(context).loadString('assets/ingredients.json');
-    final list = (jsonDecode(jsonStr) as List<dynamic>).map((e) => Ingredient.fromJson(e as Map<String, dynamic>)).toList();
-    return list;
+    try {
+      final jsonStr = await DefaultAssetBundle.of(context).loadString('assets/ingredients.json');
+      final list = (jsonDecode(jsonStr) as List<dynamic>).map((e) => Ingredient.fromJson(e as Map<String, dynamic>)).toList();
+      return list;
+    } catch (e) {
+      print('❌ Malzemeler yüklenemedi: $e');
+      return [];
+    }
   }
 
   @override
@@ -39,10 +47,9 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           final allIngredients = snapshot.data!;
-          final query = _controller.text.trim().toLowerCase();
-          final filtered = query.isEmpty
+          final filtered = _searchQuery.isEmpty
               ? allIngredients
-              : allIngredients.where((i) => i.name.toLowerCase().contains(query) || i.aliases.any((a) => a.toLowerCase().contains(query))).toList();
+              : allIngredients.where((i) => i.name.toLowerCase().contains(_searchQuery) || i.aliases.any((a) => a.toLowerCase().contains(_searchQuery))).toList();
 
           return Column(
             children: [
@@ -51,7 +58,11 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                 child: TextField(
                   controller: _controller,
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.search), hintText: 'Malzeme ara: örn. domates'),
-                  onChanged: (_) => setState(() {}),
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value.trim().toLowerCase();
+                    });
+                  },
                 ),
               ),
               Expanded(
@@ -79,18 +90,50 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _selectedIngredientIds.isEmpty ? null : () async {
-                      final service = await MatchingService.loadFromAssets();
-                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
-                      if (!mounted) return;
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
-                    },
-                    icon: const Icon(Icons.search),
-                    label: const Text('Tarif Ara'),
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                          final service = await MatchingService.loadFromAssets();
+                          final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                          if (!mounted) return;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
+                        },
+                        icon: const Icon(Icons.search),
+                        label: const Text('Klasik Tarif Ara'),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                          if (!mounted) return;
+
+                          // Loading state için basit buton
+                          final service = await MatchingService.loadFromAssets();
+                          final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+
+                          if (!mounted) return;
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => ResultsScreen(
+                              results: results,
+                              ingredientById: service.ingredientById,
+                              isAIMode: true,
+                            ),
+                          ));
+                        },
+                        icon: const Icon(Icons.smart_toy),
+                        label: const Text('AI ile Tarif Öner'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],
