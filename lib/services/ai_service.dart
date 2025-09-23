@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 import '../models/models.dart';
 import 'matching_service.dart';
+import 'ai/tflite_loader.dart';
 
 /// AI-powered matcher that extends the baseline [MatchingService].
 /// It attempts to use a TensorFlow Lite model when available; otherwise
 /// it falls back to an enhanced heuristic scoring.
 class AIService extends MatchingService {
-  final tfl.Interpreter? _interpreter;
+  final Object? _interpreter;
 
   // Learned substitution weights keyed by "ingredientId->substituteId"
   final Map<String, double> _learnedSubstitutionWeights;
@@ -19,17 +19,17 @@ class AIService extends MatchingService {
     required super.ingredientById,
     required super.recipes,
     required super.substitutions,
-    tfl.Interpreter? interpreter,
+    Object? interpreter,
     Map<String, double>? learnedSubstitutionWeights,
   })  : _interpreter = interpreter,
         _learnedSubstitutionWeights = learnedSubstitutionWeights ?? <String, double>{};
 
   static Future<AIService> loadFromAssets() async {
     final base = await MatchingService.loadFromAssets();
-    tfl.Interpreter? interpreter;
+    Object? interpreter;
     try {
-      // Try local asset first
-      interpreter = await tfl.Interpreter.fromAsset('assets/data/recipe_matcher.tflite');
+      // Try local asset first using conditional bridge (returns null on web)
+      interpreter = await tfliteLoadFromAsset('assets/data/recipe_matcher.tflite');
     } catch (_) {
       // If model missing or invalid, stay null. We keep the app fully functional.
       interpreter = null;
@@ -85,7 +85,9 @@ class AIService extends MatchingService {
         final input = [featureVector];
         final output = List.filled(1, List.filled(1, 0.0));
         try {
-          _interpreter!.run(input, output);
+          // Dynamic invoke to keep web builds working without tflite dependency
+          // ignore: avoid_dynamic_calls
+          (_interpreter as dynamic).run(input, output);
           final probability = (output[0][0] as num).toDouble().clamp(0.0, 1.0);
           final score = (probability * 100).round();
           final missing = _missingIngredients(recipe, userIngredientIds, subMap);
