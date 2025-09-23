@@ -48,6 +48,85 @@
       {"ingredient_id":"zeytinyagi","quantity":1,"unit":"YK","optional":false,"required":true},
       {"ingredient_id":"sogan","quantity":0.5,"unit":"adet","optional":true,"required":false}
     ]
+  },
+  {
+    "id": "tavuklu_pilav",
+    "name": "Tavuklu Pilav",
+    "description": "Nefis tavuklu pilav tarifi.",
+    "steps": [
+      "Tavuk etini küp küp doğrayın.",
+      "Zeytinyağında tavuğu kavurun.",
+      "Pirinçi ekleyip 2-3 dk kavurun.",
+      "Sıcak su ekleyip 15 dk pişirin.",
+      "Maydanoz ile süsleyip servis edin."
+    ],
+    "time_min": 35,
+    "servings": 4,
+    "difficulty": "orta",
+    "equipment": ["tencere"],
+    "diet_tags": [],
+    "image_url": "",
+    "popularity_score": 85,
+    "recipe_ingredients": [
+      {"ingredient_id":"tavuk_eti","quantity":300,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"pirinc","quantity":200,"unit":"g","optional":false,"required":true},
+      {"ingredient_id":"zeytinyagi","quantity":3,"unit":"YK","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"maydanoz","quantity":1,"unit":"demet","optional":true,"required":false}
+    ]
+  },
+  {
+    "id": "sebzeli_omlet",
+    "name": "Sebzeli Omlet",
+    "description": "Renkli sebzelerle dolu sağlıklı omlet.",
+    "steps": [
+      "Sebzeleri küçük küçük doğrayın.",
+      "Tavada zeytinyağında sebzeleri kavurun.",
+      "Çırpılmış yumurtayı döküp pişirin.",
+      "Peynir ekleyip katlayın.",
+      "Sıcak servis edin."
+    ],
+    "time_min": 12,
+    "servings": 1,
+    "difficulty": "kolay",
+    "equipment": ["tava"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 75,
+    "recipe_ingredients": [
+      {"ingredient_id":"yumurta","quantity":3,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"domates","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"biber","quantity":0.5,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"sogan","quantity":0.25,"unit":"adet","optional":true,"required":false},
+      {"ingredient_id":"peynir_kasar","quantity":50,"unit":"g","optional":true,"required":false},
+      {"ingredient_id":"zeytinyagi","quantity":1,"unit":"YK","optional":false,"required":true}
+    ]
+  },
+  {
+    "id": "patates_salatasi",
+    "name": "Patates Salatası",
+    "description": "Kremali patates salatası.",
+    "steps": [
+      "Patatesleri haşlayın ve doğrayın.",
+      "Havuçları rendeleyip ekleyin.",
+      "Yoğurt, mayonez ve baharatları karıştırın.",
+      "Patateslerle karıştırıp buzdolabında dinlendirin.",
+      "Maydanoz ile süsleyip servis edin."
+    ],
+    "time_min": 25,
+    "servings": 4,
+    "difficulty": "kolay",
+    "equipment": ["tencere"],
+    "diet_tags": ["vejetaryen"],
+    "image_url": "",
+    "popularity_score": 70,
+    "recipe_ingredients": [
+      {"ingredient_id":"patates","quantity":4,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"havuc","quantity":1,"unit":"adet","optional":false,"required":true},
+      {"ingredient_id":"yogurt","quantity":150,"unit":"ml","optional":false,"required":true},
+      {"ingredient_id":"maydanoz","quantity":0.5,"unit":"demet","optional":true,"required":false},
+      {"ingredient_id":"tuz","quantity":1,"unit":"tsp","optional":false,"required":true},
+      {"ingredient_id":"limon","quantity":0.5,"unit":"adet","optional":true,"required":false}
+    ]
   }
 ]
-

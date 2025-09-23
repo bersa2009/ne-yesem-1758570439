@@ -7,6 +7,21 @@
   {"id":"peynir_kasar","name":"Kaşar Peyniri","aliases":["kasar","cheddar"],"category":"Süt"},
   {"id":"peynir_mozzarella","name":"Mozzarella","aliases":["mozz"],"category":"Süt"},
   {"id":"tereyagi","name":"Tereyağı","aliases":["butter"],"category":"Yağ"},
-  {"id":"sut","name":"Süt","aliases":["milk"],"category":"Süt"}
+  {"id":"sut","name":"Süt","aliases":["milk"],"category":"Süt"},
+  {"id":"ekmek","name":"Ekmek","aliases":["bread"],"category":"Tahıl"},
+  {"id":"tavuk_eti","name":"Tavuk Eti","aliases":["chicken"],"category":"Protein"},
+  {"id":"pirinc","name":"Pirinç","aliases":["rice"],"category":"Tahıl"},
+  {"id":"havuc","name":"Havuç","aliases":["carrot"],"category":"Sebze"},
+  {"id":"patates","name":"Patates","aliases":["potato"],"category":"Sebze"},
+  {"id":"biber","name":"Biber","aliases":["pepper"],"category":"Sebze"},
+  {"id":"sarımsak","name":"Sarımsak","aliases":["garlic"],"category":"Sebze"},
+  {"id":"krema","name":"Krema","aliases":["cream"],"category":"Süt"},
+  {"id":"limon","name":"Limon","aliases":["lemon"],"category":"Meyve"},
+  {"id":"yogurt","name":"Yoğurt","aliases":["yoghurt"],"category":"Süt"},
+  {"id":"suzme_yogurt","name":"Süzme Yoğurt","aliases":["strained yogurt"],"category":"Süt"},
+  {"id":"sirke","name":"Sirke","aliases":["vinegar"],"category":"Sos"},
+  {"id":"tuz","name":"Tuz","aliases":["salt"],"category":"Baharat"},
+  {"id":"karabiber","name":"Karabiber","aliases":["black pepper"],"category":"Baharat"},
+  {"id":"kirmizi_biber","name":"Kırmızı Biber","aliases":["red pepper"],"category":"Baharat"},
+  {"id":"maydanoz","name":"Maydanoz","aliases":["parsley"],"category":"Yeşillik"}
 ]
-

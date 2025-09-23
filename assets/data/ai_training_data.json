@@ -1,0 +1,87 @@
+{
+  "training_samples": [
+    {
+      "user_ingredients": ["makarna", "domates", "zeytinyagi", "sogan", "peynir_kasar"],
+      "recipe_id": "makarna_domatesli",
+      "expected_score": 95,
+      "user_feedback": 1.0
+    },
+    {
+      "user_ingredients": ["makarna", "domates", "zeytinyagi"],
+      "recipe_id": "makarna_domatesli", 
+      "expected_score": 85,
+      "user_feedback": 0.9
+    },
+    {
+      "user_ingredients": ["domates", "yumurta", "zeytinyagi", "sogan"],
+      "recipe_id": "menemen",
+      "expected_score": 95,
+      "user_feedback": 1.0
+    },
+    {
+      "user_ingredients": ["domates", "yumurta", "zeytinyagi"],
+      "recipe_id": "menemen",
+      "expected_score": 85,
+      "user_feedback": 0.9
+    },
+    {
+      "user_ingredients": ["tavuk_eti", "pirinc", "zeytinyagi", "sogan"],
+      "recipe_id": "tavuklu_pilav",
+      "expected_score": 90,
+      "user_feedback": 0.95
+    },
+    {
+      "user_ingredients": ["yumurta", "domates", "biber", "zeytinyagi"],
+      "recipe_id": "sebzeli_omlet",
+      "expected_score": 90,
+      "user_feedback": 0.95
+    },
+    {
+      "user_ingredients": ["patates", "havuc", "yogurt"],
+      "recipe_id": "patates_salatasi",
+      "expected_score": 85,
+      "user_feedback": 0.9
+    },
+    {
+      "user_ingredients": ["makarna", "tavuk_eti", "zeytinyagi"],
+      "recipe_id": "makarna_domatesli",
+      "expected_score": 60,
+      "user_feedback": 0.6
+    },
+    {
+      "user_ingredients": ["yumurta", "sut", "tereyagi"],
+      "recipe_id": "menemen",
+      "expected_score": 45,
+      "user_feedback": 0.4
+    },
+    {
+      "user_ingredients": ["pirinc", "patates", "sogan"],
+      "recipe_id": "tavuklu_pilav",
+      "expected_score": 50,
+      "user_feedback": 0.5
+    }
+  ],
+  "ingredient_categories": {
+    "Sebze": ["domates", "sogan", "havuc", "patates", "biber", "sarımsak"],
+    "Tahıl": ["makarna", "ekmek", "pirinc"],
+    "Protein": ["yumurta", "tavuk_eti"],
+    "Süt": ["peynir_kasar", "peynir_mozzarella", "tereyagi", "sut", "krema", "yogurt", "suzme_yogurt"],
+    "Yağ": ["zeytinyagi", "tereyagi"],
+    "Meyve": ["limon"],
+    "Baharat": ["tuz", "karabiber", "kirmizi_biber"],
+    "Yeşillik": ["maydanoz"],
+    "Sos": ["sirke"]
+  },
+  "user_preferences": {
+    "diet_preferences": {
+      "vejetaryen": 1.2,
+      "vegan": 1.1,
+      "normal": 1.0
+    },
+    "time_preferences": {
+      "quick": {"max_time": 20, "bonus": 1.3},
+      "medium": {"max_time": 40, "bonus": 1.1},
+      "long": {"max_time": 120, "bonus": 1.0}
+    }
+  }
+}

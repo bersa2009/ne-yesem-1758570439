@@ -1,0 +1,43 @@
+{
+  "ingredient_to_idx": {
+    "domates": 0,
+    "makarna": 1,
+    "zeytinyagi": 2,
+    "sogan": 3,
+    "yumurta": 4,
+    "peynir_kasar": 5,
+    "peynir_mozzarella": 6,
+    "tereyagi": 7,
+    "sut": 8,
+    "ekmek": 9,
+    "tavuk_eti": 10,
+    "pirinc": 11,
+    "havuc": 12,
+    "patates": 13,
+    "biber": 14,
+    "sarımsak": 15,
+    "krema": 16,
+    "limon": 17,
+    "yogurt": 18,
+    "suzme_yogurt": 19,
+    "sirke": 20,
+    "tuz": 21,
+    "karabiber": 22,
+    "kirmizi_biber": 23,
+    "maydanoz": 24
+  },
+  "recipe_to_idx": {
+    "makarna_domatesli": 0,
+    "menemen": 1,
+    "tavuklu_pilav": 2,
+    "sebzeli_omlet": 3,
+    "patates_salatasi": 4
+  },
+  "num_ingredients": 25,
+  "num_recipes": 5,
+  "feature_size": 30,
+  "version": "1.0",
+  "model_type": "neural_network",
+  "input_shape": [30],
+  "output_shape": [1]
+}
