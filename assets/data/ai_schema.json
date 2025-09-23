@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "description": "Placeholder schema describing ingredient vectorization for AI matcher.",
+  "vector": {
+    "type": "binary_coverage",
+    "note": "Position i corresponds to sorted ingredient id list."
+  }
+}

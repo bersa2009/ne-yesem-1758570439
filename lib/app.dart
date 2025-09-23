@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui/screens/welcome_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'services/ai_service.dart';
 
 class NeYesemApp extends StatelessWidget {
   const NeYesemApp({super.key});
