@@ -32,3 +32,20 @@ ios/Runner/GeneratedPluginRegistrant.*
 *.keystore
 *.jks
 
+# Flutter/Dart
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins
+.metadata
+build/
+.idea/
+.vscode/
+.DS_Store
+.gradle/
+ios/Pods/
+android/.gradle/
+android/app/release/
+pubspec.lock
+
