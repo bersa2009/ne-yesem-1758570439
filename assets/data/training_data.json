@@ -9,7 +9,7 @@
     {"id": "peynir_mozzarella", "name": "Mozzarella", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 1, 0, 1]},
     {"id": "tereyagi", "name": "Tereyağı", "category": "Yağ", "vector": [0, 0, 1, 0, 0, 1, 0, 0, 0, 0]},
     {"id": "sut", "name": "Süt", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 0, 0, 1, 1]},
-    {"id": "krema", "name": "Kremsi Şanti", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 1, 0, 1, 0]},
+    {"id": "krema", "name": "Krema", "category": "Süt", "vector": [0, 0, 0, 0, 0, 1, 1, 0, 1, 0]},
     {"id": "un", "name": "Un", "category": "Tahıl", "vector": [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]},
     {"id": "seker", "name": "Şeker", "category": "Tatlandırıcı", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
     {"id": "tuz", "name": "Tuz", "category": "Baharat", "vector": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
@@ -100,29 +100,29 @@
       "score": 80
     },
     {
-      "user_ingredients": ["domates", "makarna", "zeytinyagi"],
+      "user_ingredients": ["domates", "makarna", "zeytinyagi", "sogan", "peynir_kasar"],
       "recipe_id": "makarna_domatesli",
+      "score": 100
+    },
+    {
+      "user_ingredients": ["domates", "yumurta", "zeytinyagi", "sogan"],
+      "recipe_id": "menemen",
+      "score": 95
+    },
+    {
+      "user_ingredients": ["patates", "zeytinyagi", "tuz"],
+      "recipe_id": "patates_kızartması",
+      "score": 90
+    },
+    {
+      "user_ingredients": ["tavuk", "sogan", "domates", "salca"],
+      "recipe_id": "tavuk_sote",
       "score": 92
     },
     {
-      "user_ingredients": ["domates", "yumurta"],
-      "recipe_id": "menemen",
-      "score": 85
-    },
-    {
-      "user_ingredients": ["patates"],
-      "recipe_id": "patates_kızartması",
-      "score": 75
-    },
-    {
-      "user_ingredients": ["tavuk", "sogan"],
-      "recipe_id": "tavuk_sote",
-      "score": 80
-    },
-    {
-      "user_ingredients": ["pirinc", "sogan"],
+      "user_ingredients": ["pirinc", "tereyagi", "sogan"],
       "recipe_id": "pirinc_pilavi",
-      "score": 85
+      "score": 88
     }
   ]
 }

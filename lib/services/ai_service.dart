@@ -8,14 +8,13 @@ class AIService {
   static const String _modelPath = 'assets/data/recipe_model.tflite';
   static const String _trainingDataPath = 'assets/data/training_data.json';
 
-  late Interpreter _interpreter;
+  Interpreter? _interpreter;
   late Map<String, List<double>> _ingredientVectors;
   late List<Map<String, dynamic>> _trainingExamples;
   late List<Recipe> _recipes;
   late Map<String, Ingredient> _ingredientById;
   late List<Substitution> _substitutions;
-  late bool _useTensorFlowLite;
-
+  bool _useTensorFlowLite = false;
   bool _isInitialized = false;
 
   Future<void> initialize() async {
@@ -28,49 +27,23 @@ class AIService {
       print('✅ TensorFlow Lite modeli başarıyla yüklendi');
     } catch (e) {
       print('⚠️ TensorFlow Lite modeli yüklenemedi, KNN tabanlı yaklaşım kullanılacak: $e');
+      _interpreter = null;
       _useTensorFlowLite = false;
     }
 
+    // Tüm veri yükleme işlemlerini tek try-catch içinde yap
     try {
-      // Eğitim verilerini yükle
-      final trainingDataJson = await rootBundle.loadString(_trainingDataPath);
-      final trainingData = jsonDecode(trainingDataJson) as Map<String, dynamic>;
-
-      _ingredientVectors = {
-        for (final item in trainingData['ingredients'])
-          item['id'] as String: List<double>.from(item['vector'] as List<dynamic>)
-      };
-
-      _trainingExamples = List<Map<String, dynamic>>.from(trainingData['training_examples']);
-      _recipes = (trainingData['recipes'] as List<dynamic>)
-          .map((e) => Recipe.fromJson(e as Map<String, dynamic>))
-          .toList();
-
-      print('✅ Eğitim verileri başarıyla yüklendi');
-    } catch (e) {
-      print('❌ Eğitim verileri yüklenemedi: $e');
-      throw Exception('Eğitim verileri yüklenemedi: $e');
-    }
-
-    try {
-      // Mevcut servis verilerini yükle
-      final ingredientsJson = jsonDecode(await rootBundle.loadString('assets/ingredients.json')) as List<dynamic>;
-      final recipesJson = jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List<dynamic>;
-      final subsJson = jsonDecode(await rootBundle.loadString('assets/substitutions.json')) as List<dynamic>;
-
-      _ingredientById = {for (final i in ingredientsJson.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))) i.id: i};
-      _substitutions = subsJson.map((e) => Substitution.fromJson(e as Map<String, dynamic>)).toList();
-
-      print('✅ Servis verileri başarıyla yüklendi');
+      await _loadAllData();
       _isInitialized = true;
+      print('✅ AI Service başarıyla başlatıldı');
     } catch (e) {
-      print('❌ Servis verileri yüklenemedi: $e');
-      throw Exception('Servis verileri yüklenemedi: $e');
+      print('❌ AI Service başlatma hatası: $e');
+      throw Exception('AI Service başlatılamadı: $e');
     }
   }
 
-  Future<void> _initializeKNN() async {
-    // KNN için eğitim verilerini hazırla
+  Future<void> _loadAllData() async {
+    // Eğitim verilerini yükle
     final trainingDataJson = await rootBundle.loadString(_trainingDataPath);
     final trainingData = jsonDecode(trainingDataJson) as Map<String, dynamic>;
 
@@ -91,9 +64,8 @@ class AIService {
 
     _ingredientById = {for (final i in ingredientsJson.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))) i.id: i};
     _substitutions = subsJson.map((e) => Substitution.fromJson(e as Map<String, dynamic>)).toList();
-
-    _isInitialized = true;
   }
+
 
   List<MatchResult> matchRecipes({
     required Set<String> userIngredientIds,
@@ -221,9 +193,13 @@ class AIService {
 
   double _calculateSimilarityWithTFLite(Set<String> userIngredientIds, Recipe recipe) {
     // TFLite modelini kullanarak similarity hesapla
-    // Bu kısım gerçek model olduğunda implemente edilecek
+    if (_interpreter == null) {
+      throw Exception('TFLite interpreter is not initialized');
+    }
 
-    // Şimdilik KNN fallback'i kullan
+    // Placeholder: Gerçek TFLite implementasyonu burada olacak
+    // Şimdilik KNN kullanıyoruz
+    print('⚠️ TFLite similarity hesaplaması henüz implemente edilmedi, KNN kullanılıyor');
     return _calculateSimilarityWithKNN(userIngredientIds, recipe);
   }
 
@@ -312,13 +288,14 @@ class AIService {
   }
 
   void dispose() {
-    if (_isInitialized && _useTensorFlowLite) {
+    if (_isInitialized && _interpreter != null) {
       try {
-        _interpreter.close();
+        _interpreter!.close();
         print('✅ AI Service başarıyla kapatıldı');
       } catch (e) {
         print('⚠️ AI Service kapatma hatası: $e');
       }
     }
+    _isInitialized = false;
   }
 }

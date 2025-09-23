@@ -5,11 +5,8 @@ import 'local_store.dart';
 
 final aiServiceProvider = Provider<AIService>((ref) {
   final aiService = AIService();
-  // AI servisini başlat
-  aiService.initialize().catchError((e) {
-    // Hata durumunda log veya fallback
-    print('AI Service initialization error: $e');
-  });
+  // Provider dispose olduğunda AI service'i de dispose et
+  ref.onDispose(() => aiService.dispose());
   return aiService;
 });
 
@@ -33,15 +30,27 @@ final aiMatchResultsProvider = FutureProvider.family<List<MatchResult>, MatchReq
   final userPreferences = ref.watch(userPreferencesProvider);
 
   // AI servisini başlat (eğer henüz başlatılmadıysa)
-  await aiService.initialize();
+  try {
+    await aiService.initialize();
+  } catch (e) {
+    print('❌ AI Service başlatma hatası: $e');
+    // Fallback: Boş sonuç döndür
+    return [];
+  }
 
   // Tarifleri eşleştir
-  return aiService.matchRecipes(
-    userIngredientIds: request.userIngredientIds,
-    filters: request.filters,
-    userHistory: userHistory,
-    userPreferences: userPreferences,
-  );
+  try {
+    return aiService.matchRecipes(
+      userIngredientIds: request.userIngredientIds,
+      filters: request.filters,
+      userHistory: userHistory,
+      userPreferences: userPreferences,
+    );
+  } catch (e) {
+    print('❌ Tarif eşleştirme hatası: $e');
+    // Fallback: Boş sonuç döndür
+    return [];
+  }
 });
 
 class UserHistoryNotifier extends StateNotifier<Map<String, int>> {

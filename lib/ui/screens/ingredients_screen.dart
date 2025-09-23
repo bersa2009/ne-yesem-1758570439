@@ -17,6 +17,7 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -25,9 +26,14 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
   }
 
   Future<List<Ingredient>> _loadIngredients() async {
-    final jsonStr = await DefaultAssetBundle.of(context).loadString('assets/ingredients.json');
-    final list = (jsonDecode(jsonStr) as List<dynamic>).map((e) => Ingredient.fromJson(e as Map<String, dynamic>)).toList();
-    return list;
+    try {
+      final jsonStr = await DefaultAssetBundle.of(context).loadString('assets/ingredients.json');
+      final list = (jsonDecode(jsonStr) as List<dynamic>).map((e) => Ingredient.fromJson(e as Map<String, dynamic>)).toList();
+      return list;
+    } catch (e) {
+      print('❌ Malzemeler yüklenemedi: $e');
+      return [];
+    }
   }
 
   @override
@@ -41,10 +47,9 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           final allIngredients = snapshot.data!;
-          final query = _controller.text.trim().toLowerCase();
-          final filtered = query.isEmpty
+          final filtered = _searchQuery.isEmpty
               ? allIngredients
-              : allIngredients.where((i) => i.name.toLowerCase().contains(query) || i.aliases.any((a) => a.toLowerCase().contains(query))).toList();
+              : allIngredients.where((i) => i.name.toLowerCase().contains(_searchQuery) || i.aliases.any((a) => a.toLowerCase().contains(_searchQuery))).toList();
 
           return Column(
             children: [
@@ -53,7 +58,11 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
                 child: TextField(
                   controller: _controller,
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.search), hintText: 'Malzeme ara: örn. domates'),
-                  onChanged: (_) => setState(() {}),
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value.trim().toLowerCase();
+                    });
+                  },
                 ),
               ),
               Expanded(
@@ -99,59 +108,29 @@ class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
                     const SizedBox(height: 8),
                     SizedBox(
                       width: double.infinity,
-                      child: Consumer(
-                        builder: (context, ref, child) {
-                          final aiAsyncValue = ref.watch(aiMatchResultsProvider(
-                            MatchRequest(
-                              userIngredientIds: _selectedIngredientIds,
-                              filters: const MatchFilters(maxTimeMinutes: 30),
+                      child: ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty ? null : () async {
+                          if (!mounted) return;
+
+                          // Loading state için basit buton
+                          final service = await MatchingService.loadFromAssets();
+                          final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+
+                          if (!mounted) return;
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => ResultsScreen(
+                              results: results,
+                              ingredientById: service.ingredientById,
+                              isAIMode: true,
                             ),
                           ));
-
-                          return aiAsyncValue.when(
-                            data: (results) => ElevatedButton.icon(
-                              onPressed: _selectedIngredientIds.isEmpty ? null : () async {
-                                if (!mounted) return;
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => ResultsScreen(
-                                    results: results,
-                                    ingredientById: (await MatchingService.loadFromAssets()).ingredientById,
-                                    isAIMode: true,
-                                  ),
-                                ));
-                              },
-                              icon: const Icon(Icons.smart_toy),
-                              label: const Text('AI ile Tarif Öner'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orange,
-                                foregroundColor: Colors.white,
-                              ),
-                            ),
-                            loading: () => const ElevatedButton.icon(
-                              onPressed: null,
-                              icon: SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2),
-                              ),
-                              label: Text('AI Hazırlanıyor...'),
-                            ),
-                            error: (error, stack) => ElevatedButton.icon(
-                              onPressed: _selectedIngredientIds.isEmpty ? null : () async {
-                                final service = await MatchingService.loadFromAssets();
-                                final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
-                                if (!mounted) return;
-                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
-                              },
-                              icon: const Icon(Icons.warning),
-                              label: const Text('AI Hata - Klasik Ara'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                              ),
-                            ),
-                          );
                         },
+                        icon: const Icon(Icons.smart_toy),
+                        label: const Text('AI ile Tarif Öner'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                        ),
                       ),
                     ),
                   ],
