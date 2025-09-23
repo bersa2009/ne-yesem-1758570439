@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/models.dart';
 import '../../services/matching_service.dart';
+import '../../providers.dart';
 import 'results_screen.dart';
 
-class IngredientsScreen extends StatefulWidget {
+class IngredientsScreen extends ConsumerStatefulWidget {
   const IngredientsScreen({super.key});
 
   @override
-  State<IngredientsScreen> createState() => _IngredientsScreenState();
+  ConsumerState<IngredientsScreen> createState() => _IngredientsScreenState();
 }
 
-class _IngredientsScreenState extends State<IngredientsScreen> {
+class _IngredientsScreenState extends ConsumerState<IngredientsScreen> {
   final TextEditingController _controller = TextEditingController();
   final Set<String> _selectedIngredientIds = <String>{};
   late Future<List<Ingredient>> _ingredientsFuture;
@@ -81,15 +83,47 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _selectedIngredientIds.isEmpty ? null : () async {
-                      final service = await MatchingService.loadFromAssets();
-                      final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
-                      if (!mounted) return;
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
-                    },
-                    icon: const Icon(Icons.search),
-                    label: const Text('Tarif Ara'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty
+                            ? null
+                            : () async {
+                                final service = await MatchingService.loadFromAssets();
+                                final results = service.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                                if (!mounted) return;
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: service.ingredientById)));
+                              },
+                        icon: const Icon(Icons.search),
+                        label: const Text('Tarif Ara'),
+                      ),
+                      const SizedBox(height: 8),
+                      ElevatedButton.icon(
+                        onPressed: _selectedIngredientIds.isEmpty
+                            ? null
+                            : () async {
+                                final aiAsync = ref.read(aiServiceProvider);
+                                final ai = await aiAsync.future;
+                                final favorites = ref.read(favoriteRecipeIdsProvider);
+                                List<MatchResult> results;
+                                try {
+                                  results = await ai.aiMatch(
+                                    userIngredientIds: _selectedIngredientIds,
+                                    filters: const MatchFilters(maxTimeMinutes: 30),
+                                    favoriteRecipeIds: favorites,
+                                  );
+                                } catch (_) {
+                                  final fallback = await MatchingService.loadFromAssets();
+                                  results = fallback.match(userIngredientIds: _selectedIngredientIds, filters: const MatchFilters(maxTimeMinutes: 30));
+                                }
+                                if (!mounted) return;
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => ResultsScreen(results: results, ingredientById: ai.ingredientById)));
+                              },
+                        icon: const Icon(Icons.auto_awesome),
+                        label: const Text('AI Öner'),
+                      ),
+                    ],
                   ),
                 ),
               )

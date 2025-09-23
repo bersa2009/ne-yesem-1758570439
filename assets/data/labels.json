@@ -1,0 +1,17 @@
+{
+  "model": "recipe_matcher_v1",
+  "inputs": [
+    "exact_ratio",
+    "substitution_ratio",
+    "missing_required_ratio",
+    "missing_optional_ratio",
+    "time_bonus",
+    "diet_bonus",
+    "favorite_boost",
+    "equipment_ok",
+    "popularity"
+  ],
+  "outputs": ["match_probability"],
+  "learned_weights": {}
+}
+

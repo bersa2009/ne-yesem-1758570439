@@ -14,13 +14,14 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sorted = List<MatchResult>.from(results)..sort((a, b) => b.score.compareTo(a.score));
     return Scaffold(
       appBar: AppBar(title: const Text('Öneriler')),
       body: ListView.separated(
-        itemCount: results.length,
+        itemCount: sorted.length,
         separatorBuilder: (_, __) => const Divider(height: 1),
         itemBuilder: (context, index) {
-          final r = results[index];
+          final r = sorted[index];
           return ListTile(
             title: Text(r.recipe.name),
             subtitle: Text('Skor: ${r.score} • Süre: ${r.recipe.timeMin} dk'),
